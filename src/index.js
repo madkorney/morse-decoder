@@ -37,8 +37,24 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
 function decode(expr) {
-    // write your solution here
+
+    function decodeCharFromMorse(morseCode) {
+        if (morseCode[0] == "*") {
+              return " "  // space
+            } else {
+              return MORSE_TABLE[morseCode];
+            }
+    }
+
+    let decodedString = "";
+    let numOfCharBlocks = expr.length / 10;
+    for (let i = 0; i < numOfCharBlocks; i++) {
+        let morseCode = expr.substring(i*10, 10 + i*10).replace(/00/g, "").replace(/10/g, ".").replace(/11/g,"-");
+        decodedString += decodeCharFromMorse(morseCode);
+    }
+    return decodedString;
 }
 
 module.exports = {
